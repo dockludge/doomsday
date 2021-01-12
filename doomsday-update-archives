@@ -1,0 +1,30 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+# /usr/bin/doomsday-update-archives
+
+. /etc/doomsday/doomsday.conf
+
+repos=($(find $base_path -name .git | awk '{if (NR!=1) {print substr($1, 1, length($1)-4)}}'))
+
+for repo in "${repos[@]}"
+do
+	echo "======================================================"
+        echo "Updating: $repo"
+        cd $repo
+        git pull
+	echo "======================================================"
+done
+echo ""
+echo "======================================================"
+echo "KERNEL source code"
+cd $kernel_path
+echo "Scraping Kernel.org: $(wget -O /tmp/kernel.tmp https://www.kernel.org/ 2>&1 | grep -i 'saving')"
+URLs=($(grep .tar..z /tmp/kernel.tmp | awk -F 'href="' '{print $2}' | cut -d'"' -f1 | sort | uniq))
+echo -e "Found: \n$URLs"
+for url in "${URLs[@]}"
+do
+  wget -c $url 
+done
+echo "======================================================"
+rm -f /tmp/kernel.tmp
+
