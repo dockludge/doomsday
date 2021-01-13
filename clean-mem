@@ -1,0 +1,12 @@
+#!/bin/bash
+# /usr/sbin/clean-mem
+
+myself=`basename "$0"`
+echo $myself' [info] Cleaning Memory'
+dirty=$(free | grep ^Mem | awk '{print $4}')
+sync; echo 1 > /proc/sys/vm/drop_caches
+sync; echo 2 > /proc/sys/vm/drop_caches
+clean=$(free | grep ^Mem | awk '{print $4}')
+echo $myself' [info] Memory used: '$dirty'. Memory now available: '$clean'. Gained: '$(($clean-$dirty))
+logger $myself' '$$' [info] Memory used: '$dirty'. Memory now available: '$clean'. Gained: '$(($clean-$dirty))
+
