@@ -4,7 +4,7 @@
 
 . /etc/doomsday/doomsday.conf
 
-repos=($(find $base_path -name .git | awk '{if (NR!=1) {print substr($1, 1, length($1)-4)}}'))
+repos=($(find $git_path -name .git | awk '{if (NR!=1) {print substr($1, 1, length($1)-4)}}'))
 
 for repo in "${repos[@]}"
 do
