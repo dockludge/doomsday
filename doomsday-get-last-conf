@@ -1,0 +1,5 @@
+#!/bin/bash
+# /usr/bin/doomsday-get-last-conf 
+
+wget https://raw.githubusercontent.com/dockludge/doomsday/main/doomsday.conf -O /etc/doomsday/doomsday.conf
+
