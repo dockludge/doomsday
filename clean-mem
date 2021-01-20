@@ -7,6 +7,6 @@ dirty=$(free | grep ^Mem | awk '{print $4}')
 sync; echo 1 > /proc/sys/vm/drop_caches
 sync; echo 2 > /proc/sys/vm/drop_caches
 clean=$(free | grep ^Mem | awk '{print $4}')
-echo $myself' [info] Memory used: '$dirty'. Memory now available: '$clean'. Gained: '$(($clean-$dirty))
-logger $myself' '$$' [info] Memory used: '$dirty'. Memory now available: '$clean'. Gained: '$(($clean-$dirty))
+echo $myself' [info] Mem free: '$dirty'. Memory now available: '$clean'. Gained: '$(($clean-$dirty))
+logger $myself' '$$' [info] Mem free: '$dirty'. Memory now available: '$clean'. Gained: '$(($clean-$dirty))
 
