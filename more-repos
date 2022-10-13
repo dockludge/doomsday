@@ -1,0 +1,2 @@
+#!/bin/bash
+git add doomsday.conf && git commit -m 'new repo' && git push origin main
