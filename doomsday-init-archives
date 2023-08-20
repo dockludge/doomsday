@@ -30,6 +30,8 @@ do
     cd $git_path$git_folder
     echo "Initialing $repo"
     git clone $repo 2> /dev/null
+    repoFolder=$(echo $repo | cut -d'/' -f5 | sed 's|.git||g')
+    cd $git_path$git_folder/$repoFolder
     echo "git submodule init"
     git submodule init
 done
