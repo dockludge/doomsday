@@ -30,5 +30,7 @@ do
     cd $git_path$git_folder
     echo "Initialing $repo"
     git clone $repo 2> /dev/null
+    echo "git submodule init"
+    git submodule init
 done
 
