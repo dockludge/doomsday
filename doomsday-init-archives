@@ -24,15 +24,20 @@ fi
 
 for repo in "${doomsday_git_repos[@]}"
 do
-    git_folder=$(echo $repo | awk '{print substr($1, 1, length($1)-4)}' | awk -F 'github.com/' '{print $2}' | cut -d'/' -f1)
-    echo "Creating folder: $git_path$git_folder"
-    mkdir -p $git_path$git_folder 2> /dev/null
-    cd $git_path$git_folder
-    echo "Initialing $repo"
-    git clone $repo 2> /dev/null
-    repoFolder=$(echo $repo | cut -d'/' -f5 | sed 's|.git||g')
-    cd $git_path$git_folder/$repoFolder
-    echo "git submodule init"
-    git submodule init
+  git_folder=$(echo $repo | awk '{print substr($1, 1, length($1)-4)}' | awk -F 'github.com/' '{print $2}' | cut -d'/' -f1)
+  echo "Creating folder: $git_path$git_folder"
+  mkdir -p $git_path$git_folder 2> /dev/null
+  cd $git_path$git_folder
+  echo "Initialing $repo"
+  git clone $repo 2> /dev/null
+
+  # Wiki cloning requires authentication
+  #wiki_url="$(echo $repo | awk '{print substr($1, 1, length($1)-4)}').wiki.git"
+  #git clone $wiki_url 2> /dev/null
+
+  repoFolder=$(echo $repo | cut -d'/' -f5 | sed 's|.git||g')
+  cd $git_path$git_folder/$repoFolder
+  echo "git submodule init"
+  git submodule init
 done
 
